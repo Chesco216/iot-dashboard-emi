@@ -7,9 +7,9 @@ export const MonitorGrid = () => {
       <p className="text-slate-600">Camaras de seguridad de las aulas</p>
       <div className="grid grid-cols-2 gap-[20px] mt-[20px]">
         <CameraCard aula={101} personas={10} luces={true}/>
-        <CameraCard aula={102} personas={4} luces={false}/>
-        <CameraCard aula={103} personas={23} luces={false}/>
-        <CameraCard aula={104} personas={0} luces={true}/>
+        {/* <CameraCard aula={102} personas={4} luces={false}/> */}
+        {/* <CameraCard aula={103} personas={23} luces={false}/> */}
+        {/* <CameraCard aula={104} personas={0} luces={true}/> */}
       </div>
     </div>
   )
