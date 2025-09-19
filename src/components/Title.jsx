@@ -1,4 +1,12 @@
 export const Title = () => {
+
+  const d = new Date()
+
+  console.log({"date": d})
+
+  const date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
+  const time = d.getHours() + ':' + d.getMinutes()
+    
   return (
     <div className="flex flex-row content-between justify-between px-[40px]"> 
       <span className="flex flex-col gap-[5px]">
@@ -8,8 +16,8 @@ export const Title = () => {
       <span className="flex flex-col gap-[5px] justify-end items-end">
         <p className="text-md text-slate-600 w-fit">Fecha y Hora actual</p>
         <span className="flex flex-row gap-[20px]">
-        <p className="text-xl">8/8/25</p>
-        <p className="text-xl">12:00:00 pm</p>
+        <p className="text-xl">{date}</p>
+        <p className="text-xl">{time}</p>
         </span>
       </span>
     </div>
