@@ -34,23 +34,6 @@ export const turnLightOn = async(place) => {
 
 }
 
-export const readMQTTMessage = async() => {
-  const url = `http://127.0.0.1:8000`;
-  try {
-    const response = await fetch(url);
-    console.log(response)
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {
-    console.error(error.message);
-  }
-  c
-}
-
 export const setIntensityMQTT = async(value) => {
   const url = `http://127.0.0.1:8000/mqtt/intensity/${value}`;
 
@@ -70,7 +53,7 @@ export const setIntensityMQTT = async(value) => {
 }
 
 export const turnAllOff = async() => {
-  const url = `http://127.0.0.1:8000/mqtt/off`;
+  const url = `http://127.0.0.1:8000/mqtt/off/all`;
 
   try {
     const response = await fetch(url);
@@ -88,7 +71,7 @@ export const turnAllOff = async() => {
 }
 
 export const turnAllOn = async() => {
-  const url = `http://127.0.0.1:8000/mqtt/on`;
+  const url = `http://127.0.0.1:8000/mqtt/on/all`;
 
   try {
     const response = await fetch(url);

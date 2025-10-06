@@ -1,6 +1,11 @@
 import { turnLightOff, turnLightOn } from "../../services"
+import { useEffect, useState } from "react"
 
-export const LightsCard = ({aula, isActive}) => {
+export const LightsCard = ({aula, isActive, message}) => {
+
+  const [people, setPeople] = useState(0)
+  const [intensity, setIintensity] = useState(0)
+  const [isOn, setIsOn] = useState(false)
 
   const handleTopLight = async(e) => {
 
@@ -16,18 +21,37 @@ export const LightsCard = ({aula, isActive}) => {
 
   }
 
+  useEffect(() => {
+    try {
+      const msg = JSON.parse(message)
+      if (msg.active) setIsOn(msg.active)
+      if (msg.personas) setPeople(msg.personas)
+      if (msg.intensidad_luz) {
+        (msg.intensidad_luz > 120) ? setIintensity('Alta') : setIintensity('Baja')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [message])
+  
+
+  // const msg = JSON.parse(message)
+
+  // if (msg.personas) setPeople(msg.personas)
+  // if (msg.intensidad_luz) setIintensity(msg.intensidad_luz)
+
   if(isActive) return (
     <div className="flex flex-col p-[30px] border-1 rounded-xl border-slate-300">
       <h3 className="font-semibold text-xl mb-[15px] text-slate-400">Aula {aula}</h3>
       
       <label className="inline-flex items-center cursor-pointer justify-between mb-[15px]">
-        <p className="text-slate-400 font-semibold">Top</p>
-        <input onClick={(e) => handleTopLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
+        <p className="text-slate-400 font-semibold">Zona Delantera</p>
+        <input onClick={(e) => handleBottomLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
         <div className="relative w-11 h-6 bg-slate-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black dark:peer-focus:ring-slate-400 rounded-full peer dark:bg-slate-400 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-400 peer-checked:bg-blue-600 dark:peer-checked:bg-slate-400"></div>
       </label>
       <label className="inline-flex items-center cursor-pointer justify-between mb-[15px]">
-        <p className="text-slate-400 font-semibold">Bottom</p>
-        <input id="bottom" onClick={(e) => handleBottomLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
+        <p className="text-slate-400 font-semibold">Zona trasera</p>
+        <input id="bottom" onClick={(e) => handleTopLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
         <div className="relative w-11 h-6 bg-slate-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black dark:peer-focus:ring-slate-400 rounded-full peer dark:bg-slate-400 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-400 peer-checked:bg-blue-600 dark:peer-checked:bg-slate-400"></div>
       </label>
       <span className="flex flex-row justify-around">
@@ -41,19 +65,19 @@ export const LightsCard = ({aula, isActive}) => {
       <h3 className="font-semibold text-xl mb-[15px]">Aula {aula}</h3>
       
       <label className="inline-flex items-center cursor-pointer justify-between mb-[15px]">
-        <p className="font-semibold">Top</p>
-        <input onClick={(e) => handleTopLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
-        <div className="relative w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black dark:peer-focus:ring-black rounded-full peer dark:bg-black peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-black after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-black peer-checked:bg-blue-600 dark:peer-checked:bg-black"></div>
-      </label>
-      <label className="inline-flex items-center cursor-pointer justify-between mb-[15px]">
-        <p className="font-semibold">Bottom</p>
+        <p lassName="font-semibold">Zona Delantera</p>
         <input onClick={(e) => handleBottomLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
         <div className="relative w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black dark:peer-focus:ring-black rounded-full peer dark:bg-black peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-black after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-black peer-checked:bg-blue-600 dark:peer-checked:bg-black"></div>
       </label>
+      <label className="inline-flex items-center cursor-pointer justify-between mb-[15px]">
+        <p className="font-semibold">Zona Trasera</p>
+        <input onClick={(e) => handleTopLight(e)} type="checkbox" value="" className="sr-only peer" disabled={isActive}/>
+        <div className="relative w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black dark:peer-focus:ring-black rounded-full peer dark:bg-black peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-black after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-black peer-checked:bg-blue-600 dark:peer-checked:bg-black"></div>
+      </label>
       <span className="flex flex-row justify-around">
-        <p className="font-semibold">Numero de Personas:</p>
-        <p className="font-semibold">Intensidad de la luz:</p>
-        </span>
+        <p className="font-semibold">Numero de Personas: {people}</p>
+        <p className="font-semibold">Intensidad de la luz: {intensity}</p>
+      </span>
     </div>
   )
 }
